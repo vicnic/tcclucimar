@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package tocarmusica;
 
+
+import tocarmusica.*;
 import java.io.File;
 import javazoom.jl.player.Player;
 
@@ -14,8 +15,8 @@ import javazoom.jl.player.Player;
 public class TelaTocador extends javax.swing.JFrame {
     
     String caminho = "C:/Users/Public/Music/Sample Music/Kalimba.mp3";
-       File mp3File = new File(caminho);
-       MP3 musica = new MP3(mp3File);
+      NewClass nova = new NewClass(caminho); 
+      
 
     /**
      * Creates new form TelaTocador
@@ -84,12 +85,12 @@ public class TelaTocador extends javax.swing.JFrame {
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
         // TODO add your handling code here:       
-       musica.play();
+       nova.play();
     }//GEN-LAST:event_playActionPerformed
 
     private void pararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pararActionPerformed
         // TODO add your handling code here:
-        musica.parar();     
+        nova.close(); 
     }//GEN-LAST:event_pararActionPerformed
 
     /**

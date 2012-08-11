@@ -37,9 +37,11 @@ public class MP3 {
         }
         
     }
-    public void parar(){        
-        this.player.close();
-        System.out.println("Terminado");
+    public void parar(){
+        if(this.player != null){
+            this.player.close();
+        }
+        
     }
    //
     
