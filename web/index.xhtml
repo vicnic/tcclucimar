@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">   
+    <h:head>
+        <title>Gerenciamento</title>
+        <link type="text/css" rel="stylesheet" href="laranja/css/sunny/jquery-ui-1.8.23.custom.css"/>
+    </h:head>
+    <h:body>
+        
+        <p:layout fullPage="true">
+            <p:layoutUnit position="west" width="200" header="Cadastros" resizable="true" closable="true" collapsible="true">
+                
+                <h:form prependId="false">                    
+                    <p:commandLink value="Função" actionListener="#{autorizacaoController.prepararAdicionarAutorizacao}" update=":formDialog1:infosAuto" oncomplete="dialogGerAuto.show()"/>
+                    <br></br>
+                    <p:commandLink value="Usuário" actionListener="#{usuarioController.prepararAdicionarUsuario}" update=":formDialog2:infosUser" oncomplete="dialogGerUser.show()"/>                    
+                </h:form>               
+                
+                <h:outputLink value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
+                    <h:outputText value="Sair"/>
+                </h:outputLink>
+            </p:layoutUnit>
+            <p:layoutUnit position="east" header="Funções">                            
+                <h:form id="formT1" prependId="false">
+                    <p:dataTable id="tabela" var="auto" value="#{autorizacaoController.listarAutorizacaos}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo"/>
+                            </f:facet>
+                            <h:outputText value="#{auto.nome}" />
+                        </p:column>                       
+                       
+                    </p:dataTable>
+                </h:form>               
+            </p:layoutUnit>
+            <p:layoutUnit position="center" header="Relação dos Usuários Cadastrados" >                
+                <h:form id="formT2" prependId="false">
+                    <p:dataTable id="tabela2" var="user" value="#{usuarioController.listarUsuarios}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Usuário"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.username}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Função"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.funcao}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Alterar"/>
+                            </f:facet>
+                            <p:commandLink action="#{usuarioController.alterarUsuario}" value="Alterar" update=":formDialog2:infosUser" oncomplete="dialogGerUser.show()"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            <h:commandLink action="#{usuarioController.excluirUsuario()}" value="Excluir"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>                    
+            </p:layoutUnit>
+        </p:layout>
+
+        <p:dialog header="Cadastro de Funções" widgetVar="dialogGerAuto"  resizable="false" modal="true" showEffect="slide" width="500">
+            <h:form id="formDialog1" prependId="false">
+                <h:panelGrid id="infosAuto" columns="2" style="margin-bottom:10px">
+
+                    <h:outputLabel for="nome" value="Nome:" />
+                    <h:inputText id="titulo" value="#{autorizacaoController.autorizacao.nome}" autocomplete="true"/>                    
+
+                    <p:commandButton update=":formT1:tabela" oncomplete="dialogGerAuto.hide();" actionListener="#{autorizacaoController.adicionarAutorizacao}" value="Inserir Autorização"/>
+                    <p:commandButton update=":formT1:tabela" oncomplete="dialogGerAuto.hide();" actionListener="#{autorizacaoController.alterarAutorizacao}" value="Alterar Autorização"/>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog header="Cadastro de Usuário" widgetVar="dialogGerUser"  resizable="false" modal="true" showEffect="slide" width="500">
+            <h:form id="formDialog2" prependId="false">
+                <h:panelGrid id="infosUser" columns="2" style="margin-bottom:10px">
+
+                    <h:outputLabel for="username" value="Nome:" />
+                    <h:inputText id="username" value="#{usuarioController.usuario.username}" autocomplete="true"/>                   
+
+                    <h:outputLabel for="funcao" value="Função" />
+                    <h:selectOneMenu id="avaliacao" value="#{autorizacaoController.listarAutorizacaos}">                        
+                    </h:selectOneMenu>
+
+                    <p:commandButton update=":formT2:tabela2" oncomplete="dialogGerUser.hide();" actionListener="#{usuarioController.adicionarUsuario}" value="Inserir Usuário"/>
+                    <p:commandButton update=":formT2:tabela2" oncomplete="dialogGerUser.hide();" actionListener="#{usuarioController.alterarUsuario}" value="Alterar Usuário"/>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <title>Página de Entregas</title>
+        <link type="text/css" rel="stylesheet" href="laranja/css/sunny/jquery-ui-1.8.23.custom.css"/>
+    </h:head>
+    <h:body>   
+        <p:layout fullPage="true" >
+            <p:layoutUnit position="west" width="200" header="Opções" resizable="true" closable="true" collapsible="true">
+                <h:form>
+                <p:commandLink value="Imprimir" actionListener="#"/>                
+                </h:form>              
+                <h:outputLink value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
+                    <h:outputText value="Sair"/>
+                </h:outputLink>
+            </p:layoutUnit>
+            <p:layoutUnit position="east" width="200" header="Opções" resizable="true" closable="true" collapsible="true">
+                <h:form>
+                <p:commandLink value="Efetuadas" actionListener="#"/>                
+                </h:form>          
+                
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <h1>Dísponível para Entrega</h1>
+                <h:form prependId="false">                    
+                    <p:dataTable id="entregas" var="" value="">
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Bairro"/>
+                            </f:facet>
+                            <h:outputText value="Maria José do Amaral"/>  
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Quantidade"/>
+                            </f:facet>                          
+                            <h:outputText value="8"/>                                       
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Selecionar"/>
+                            </f:facet>  
+                            <p:selectBooleanCheckbox value="#" style="alignment-adjust: central" />  
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:form>                    
+            </p:layoutUnit>           
+            
+        </p:layout>        
+    </h:body>
+</html>
